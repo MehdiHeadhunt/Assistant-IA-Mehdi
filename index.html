@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assistant Mehdi — Recrutement Pharma</title>
+<style>
+  :root{--bg1:#fff;--bg2:#f5f5f0;--bg3:#eeede8;--bgi:#e6f1fb;--bgs:#eaf3de;--bgw:#faeeda;--bgd:#fcebeb;--t1:#1a1a18;--t2:#6b6b66;--t3:#9c9a92;--ti:#0c447c;--ts:#27500a;--tw:#633806;--td:#791f1f;--bd3:rgba(0,0,0,0.12);--bd2:rgba(0,0,0,0.22);--bd1:rgba(0,0,0,0.35);--rmd:8px;--rlg:12px}
+  @media(prefers-color-scheme:dark){:root{--bg1:#1e1e1c;--bg2:#2a2a27;--bg3:#333330;--bgi:#042c53;--bgs:#173404;--bgw:#412402;--bgd:#501313;--t1:#e8e6de;--t2:#a8a69e;--t3:#6e6c66;--ti:#85b7eb;--ts:#97c459;--tw:#fac775;--td:#f09595;--bd3:rgba(255,255,255,0.1);--bd2:rgba(255,255,255,0.18);--bd1:rgba(255,255,255,0.28)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg3);color:var(--t1);padding:24px 16px;min-height:100vh}
+  .wrap{max-width:780px;margin:0 auto}
+  .hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+  .hdr h1{font-size:20px;font-weight:500}
+  .hdr p{font-size:12px;color:var(--t2);margin-top:2px}
+  .badges{display:flex;gap:8px;flex-wrap:wrap}
+  .badge{font-size:11px;padding:3px 10px;border-radius:20px}
+  .live{background:var(--bgs);color:var(--ts)}
+  .soon{background:var(--bgw);color:var(--tw)}
+  .nav{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .nb{font-size:13px;padding:7px 16px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit;transition:all .15s}
+  .nb.active{background:var(--bgi);color:var(--ti);border-color:transparent}
+  .nb.lk{opacity:.4;cursor:not-allowed}
+  .page{display:none}.page.active{display:block}
+  .card{background:var(--bg1);border:0.5px solid var(--bd3);border-radius:var(--rlg);padding:1.25rem;margin-bottom:14px}
+  .ct{font-size:14px;font-weight:500;margin-bottom:12px;color:var(--t1)}
+  label{font-size:12px;color:var(--t2);display:block;margin-bottom:5px}
+  input[type=text],input[type=password],textarea{width:100%;font-size:13px;padding:9px 12px;border-radius:var(--rmd);border:0.5px solid var(--bd3);background:var(--bg2);color:var(--t1);font-family:inherit;line-height:1.6}
+  textarea{resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:var(--bd1)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+  .togrow{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .tog{font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
+  .tog.on{background:var(--bgs);color:var(--ts);border-color:transparent}
+  .ob{background:var(--bg2);border-radius:var(--rmd);padding:1rem 1.25rem;font-size:13px;line-height:1.8;color:var(--t1);white-space:pre-wrap;word-break:break-word;min-height:60px}
+  .oh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .ol{font-size:12px;font-weight:500;color:var(--t2)}
+  .cpb{font-size:11px;padding:4px 10px;border-radius:var(--rmd);cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
+  .gb{width:100%;padding:10px;font-size:14px;font-weight:500;border-radius:var(--rmd);cursor:pointer;background:var(--bgi);color:var(--ti);border:none;margin-top:8px;font-family:inherit}
+  .gb:active{transform:scale(0.99)}
+  .gb.sec{background:var(--bg2);color:var(--t1);border:0.5px solid var(--bd2)}
+  .gb.warn{background:var(--bgw);color:var(--tw);border:none}
+  .dlb{width:100%;padding:9px;font-size:13px;font-weight:500;border-radius:var(--rmd);cursor:pointer;background:var(--bgs);color:var(--ts);border:none;margin-top:8px;font-family:inherit}
+  .tr{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .tb{font-size:12px;padding:5px 12px;border-radius:var(--rmd);cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
+  .tb.active{background:var(--bg1);color:var(--t1);border-color:var(--bd1)}
+  .os{display:none}.os.active{display:block}
+  .lko{background:var(--bg2);border-radius:var(--rlg);padding:2rem;text-align:center;border:0.5px dashed var(--bd2)}
+  .lko p{color:var(--t2);font-size:13px;margin:8px 0 0}
+  .fb{background:var(--bg2);border:0.5px solid var(--bd3);border-radius:var(--rmd);padding:1rem;margin-top:12px;display:none}
+  .fb.on{display:block}
+  .apib{background:var(--bgw);border-radius:var(--rmd);padding:10px 14px;font-size:12px;color:var(--tw);margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .apib input{flex:1;min-width:200px;background:var(--bg1);border:0.5px solid var(--bd2);color:var(--t1);padding:6px 10px;border-radius:var(--rmd);font-size:12px;font-family:inherit}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--bd2);border-top-color:var(--ti);border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:6px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .mb12{margin-bottom:12px}
+  .pdf-drop{border:1.5px dashed var(--bd2);border-radius:var(--rmd);padding:1rem;text-align:center;font-size:13px;color:var(--t2);cursor:pointer;background:var(--bg2);margin-bottom:8px}
+  .pdf-drop.has{border-color:var(--ts);color:var(--ts);background:var(--bgs)}
+  .ptog{display:flex;gap:8px;margin-bottom:8px}
+  .pt{font-size:12px;padding:4px 12px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
+  .pt.on{background:var(--bgi);color:var(--ti);border-color:transparent}
+  .bd-table{width:100%;border-collapse:collapse;font-size:12px}
+  .bd-table th{text-align:left;padding:8px 10px;font-weight:500;color:var(--t2);border-bottom:0.5px solid var(--bd2);background:var(--bg2)}
+  .bd-table td{padding:8px 10px;border-bottom:0.5px solid var(--bd3);color:var(--t1);vertical-align:top}
+  .bd-table tr:hover td{background:var(--bg2)}
+  .pill{font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap}
+  .pill-w{background:var(--bgw);color:var(--tw)}
+  .pill-s{background:var(--bgs);color:var(--ts)}
+  .relance-card{background:var(--bg2);border-radius:var(--rmd);padding:1rem;margin-bottom:10px;border:0.5px solid var(--bd3)}
+  .relance-label{font-size:11px;font-weight:500;color:var(--t2);margin-bottom:6px}
+  @media(max-width:600px){.row{grid-template-columns:1fr}.row3{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div><h1>Assistant Mehdi</h1><p>Recrutement Pharma · Terrain France</p></div>
+    <div class="badges">
+      <span class="badge live">Sourcing · actif</span>
+      <span class="badge live">Rapports · actif</span>
+      <span class="badge live">BD · actif</span>
+    </div>
+  </div>
+
+  <div class="apib">
+    <span>Cle API Anthropic :</span>
+    <input type="password" id="akey" placeholder="sk-ant-...">
+    <button onclick="saveKey()" style="font-size:12px;padding:5px 12px;border-radius:6px;cursor:pointer;border:none;background:var(--tw);color:#fff;font-family:inherit">Enregistrer</button>
+    <span id="kst" style="font-size:11px"></span>
+  </div>
+
+  <div class="nav">
+    <button class="nb active" onclick="showPage('src',this)">Sourcing candidats</button>
+    <button class="nb" onclick="showPage('bd',this)">Business development</button>
+    <button class="nb" onclick="showPage('rpt',this)">Rapports candidats</button>
+  </div>
+
+  <!-- SOURCING -->
+  <div class="page" id="page-src">
+    <div class="card">
+      <p class="ct">Fiche de poste</p>
+      <label>Colle la fiche de poste ici</label>
+      <textarea id="fiche" rows="6" placeholder="Colle la fiche de poste complete..."></textarea>
+    </div>
+    <div class="card">
+      <p class="ct">Parametres</p>
+      <div class="row">
+        <div><label>Localisation</label><input type="text" id="loc" placeholder="ex : Cote d Azur, Corse"></div>
+        <div><label>Nombre de profils</label><input type="text" id="nb" placeholder="25"></div>
+      </div>
+      <div><label>Type de mission</label>
+        <div class="togrow">
+          <button class="tog" id="ts" onclick="setM('s')">Au succes — anonyme</button>
+          <button class="tog on" id="tr2" onclick="setM('r')">RPO — brande</button>
+        </div>
+      </div>
+      <div><label>Entreprise cliente (si RPO)</label><input type="text" id="ent" placeholder="ex : Effik"></div>
+    </div>
+    <div class="card">
+      <p class="ct">Livrables</p>
+      <div class="tr">
+        <button class="tb active" onclick="stab('s','bool',this)">Booleennes</button>
+        <button class="tb" onclick="stab('s','ann',this)">Annonce</button>
+        <button class="tb" onclick="stab('s','msg',this)">Messages</button>
+        <button class="tb" onclick="stab('s','prm',this)">Prompt Recruiter</button>
+      </div>
+      <div class="os active" id="s-bool">
+        <div class="oh"><span class="ol">LinkedIn classique — generaliste</span><button class="cpb" onclick="cp('bc1')">Copier</button></div>
+        <div class="ob" id="bc1">Remplis la fiche et clique Generer.</div>
+        <div class="oh" style="margin-top:12px"><span class="ol">LinkedIn classique — precise</span><button class="cpb" onclick="cp('bc2')">Copier</button></div>
+        <div class="ob" id="bc2"></div>
+        <div class="oh" style="margin-top:12px"><span class="ol">RPS — generaliste</span><button class="cpb" onclick="cp('rps1')">Copier</button></div>
+        <div class="ob" id="rps1"></div>
+        <div class="oh" style="margin-top:12px"><span class="ol">RPS — poussee</span><button class="cpb" onclick="cp('rps2')">Copier</button></div>
+        <div class="ob" id="rps2"></div>
+      </div>
+      <div class="os" id="s-ann">
+        <div class="oh"><span class="ol" id="ann-lbl">Annonce</span><button class="cpb" onclick="cp('ann')">Copier</button></div>
+        <div class="ob" id="ann">Remplis la fiche et clique Generer.</div>
+      </div>
+      <div class="os" id="s-msg">
+        <div class="oh"><span class="ol">Message LinkedIn classique</span><button class="cpb" onclick="cp('mlc')">Copier</button></div>
+        <div class="ob" id="mlc">Remplis la fiche et clique Generer.</div>
+        <div class="oh" style="margin-top:12px"><span class="ol">InMail (~1800 car.)</span><button class="cpb" onclick="cp('inm')">Copier</button></div>
+        <div class="ob" id="inm"></div>
+      </div>
+      <div class="os" id="s-prm">
+        <div class="oh"><span class="ol">Prompt universel LinkedIn Recruiter</span><button class="cpb" onclick="cp('prm')">Copier</button></div>
+        <div class="ob" id="prm">Remplis la fiche et clique Generer.</div>
+      </div>
+      <button class="gb" id="btn-src" onclick="genSrc()">Generer les livrables sourcing</button>
+    </div>
+  </div>
+
+  <!-- RAPPORTS -->
+  <div class="page" id="page-rpt">
+    <div class="card">
+      <p class="ct">Inputs du rapport</p>
+      <div class="mb12"><label>Fiche de poste</label><textarea id="r-fiche" rows="3" placeholder="Colle la fiche de poste..."></textarea></div>
+      <div class="mb12">
+        <label>CV du candidat</label>
+        <div class="ptog">
+          <button class="pt on" id="cv-txt-btn" onclick="setCVMode('txt')">Texte</button>
+          <button class="pt" id="cv-pdf-btn" onclick="setCVMode('pdf')">Upload PDF</button>
+        </div>
+        <div id="cv-txt-zone"><textarea id="r-cv" rows="5" placeholder="Colle le contenu du CV..."></textarea></div>
+        <div id="cv-pdf-zone" style="display:none">
+          <div class="pdf-drop" id="pdf-drop" onclick="document.getElementById('cv-file').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">Clique ou glisse le PDF du CV ici</div>
+          <input type="file" id="cv-file" accept=".pdf" style="display:none" onchange="handleFile(this.files[0])">
+          <div id="pdf-st" style="font-size:12px;color:var(--t2);display:none"></div>
+        </div>
+      </div>
+      <div class="mb12"><label>Tes notes d echange</label><textarea id="r-notes" rows="3" placeholder="Notes libres, impressions, points cles..."></textarea></div>
+      <div><label>Transcript <span style="font-size:11px;color:var(--t3)">(optionnel)</span></label><textarea id="r-tr" rows="3" placeholder="Colle le transcript si disponible..."></textarea></div>
+    </div>
+    <div class="card">
+      <p class="ct">Parametres</p>
+      <div class="row">
+        <div><label>Nom du candidat</label><input type="text" id="r-nom" placeholder="ex : Cedric Perthuis"></div>
+        <div><label>Poste vise</label><input type="text" id="r-poste" placeholder="ex : APM Sante de la Femme"></div>
+      </div>
+      <div class="row">
+        <div><label>Entreprise cliente</label><input type="text" id="r-client" placeholder="ex : Effik"></div>
+        <div><label>Date</label><input type="text" id="r-date" placeholder="ex : 08 avril 2026"></div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="ct">Rapport genere</p>
+      <div class="tr">
+        <button class="tb active" onclick="stab('r','txt',this)">Version texte</button>
+        <button class="tb" onclick="stab('r','dl',this)">Telecharger</button>
+      </div>
+      <div class="os active" id="r-txt">
+        <div class="oh"><span class="ol">Rapport complet</span><button class="cpb" onclick="cp('r-out')">Copier</button></div>
+        <div class="ob" id="r-out">Remplis les inputs et clique sur Generer le rapport.</div>
+      </div>
+      <div class="os" id="r-dl">
+        <div class="ob" id="r-dl-st">Genere d abord le rapport.</div>
+        <button class="dlb" id="dlb" style="display:none" onclick="dlTxt()">Telecharger (.txt)</button>
+      </div>
+      <button class="gb" id="btn-rpt" onclick="genRpt()">Generer le rapport</button>
+      <div class="fb" id="fb">
+        <label style="margin-bottom:6px;font-weight:500;color:var(--t1)">Retours pour ameliorer</label>
+        <textarea id="fb-in" rows="2" placeholder="ex : Reformule la recommandation..."></textarea>
+        <button class="gb sec" style="margin-top:8px" onclick="amelRpt()">Appliquer les retours</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BD -->
+  <div class="page active" id="page-bd">
+
+    <div class="card">
+      <p class="ct">Veille des offres pharma terrain</p>
+      <p style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.7">Lance une recherche manuelle — l assistant trouve les offres VM, DR, DZ, DSV en France et identifie les contacts.</p>
+      <div class="row">
+        <div><label>Postes recherches</label><input type="text" id="bd-postes" placeholder="ex : Visiteur Medical, Directeur Regional"></div>
+        <div><label>Zone geographique</label><input type="text" id="bd-zone" placeholder="ex : France, Ile-de-France, Sud-Ouest"></div>
+      </div>
+      <div><label>Precision supplementaire <span style="font-size:11px;color:var(--t3)">(optionnel)</span></label>
+        <input type="text" id="bd-prec" placeholder="ex : specialite cardiologie, laboratoire taille moyenne...">
+      </div>
+      <button class="gb" id="btn-veille" onclick="genVeille()" style="margin-top:12px">Lancer la recherche d offres</button>
+
+      <div id="veille-result" style="display:none;margin-top:16px">
+        <div class="oh"><span class="ol">Offres identifiees</span><button class="cpb" onclick="cp('veille-table-txt')">Copier tout</button></div>
+        <div style="overflow-x:auto;border-radius:var(--rmd);border:0.5px solid var(--bd3)">
+          <table class="bd-table" id="veille-table">
+            <thead><tr><th>Chaleur</th><th>Poste</th><th>Entreprise</th><th>Localisation</th><th>Date parution</th><th>Contact RH</th><th>Decideur</th></tr></thead>
+            <tbody id="veille-body"></tbody>
+          </table>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
+          <span id="page-info" style="font-size:12px;color:var(--t2)"></span>
+          <div style="display:flex;gap:6px">
+            <button class="cpb" id="btn-prev" onclick="changePage(-1)" style="display:none">Precedent</button>
+            <button class="cpb" id="btn-next" onclick="changePage(1)" style="display:none">Suivant</button>
+          </div>
+        </div>
+        <div class="ob" id="veille-table-txt" style="display:none"></div>
+        <p style="font-size:11px;color:var(--t3);margin-top:8px">Clique sur une ligne pour pre-remplir l email de prospection.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="ct">Email de prospection J+0</p>
+      <p style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.7">Tu as repere un poste et appele sans retour. Genere un email court et cible.</p>
+      <div class="row">
+        <div><label>Nom du contact</label><input type="text" id="bd-contact" placeholder="ex : Marie Dupont"></div>
+        <div><label>Titre / fonction</label><input type="text" id="bd-titre" placeholder="ex : DRH, Directeur des Ventes"></div>
+      </div>
+      <div class="row">
+        <div><label>Entreprise</label><input type="text" id="bd-ent" placeholder="ex : Novartis France"></div>
+        <div><label>Poste repere</label><input type="text" id="bd-poste-rep" placeholder="ex : Visiteur Medical Cardiologie Paris"></div>
+      </div>
+      <div class="mb12"><label>Contexte supplementaire <span style="font-size:11px;color:var(--t3)">(optionnel)</span></label>
+        <textarea id="bd-ctx" rows="2" placeholder="ex : poste publie depuis 3 semaines, secteur en tension, labo avec qui j ai deja travaille..."></textarea>
+      </div>
+      <button class="gb" id="btn-email" onclick="genEmail()">Generer l email J+0</button>
+      <div id="email-result" style="display:none;margin-top:12px">
+        <div class="oh"><span class="ol">Email J+0 — pret a envoyer</span><button class="cpb" onclick="cp('email-out')">Copier</button></div>
+        <div class="ob" id="email-out"></div>
+        <button class="gb warn" style="margin-top:8px" onclick="showRelance()">Generer une relance sur ce contact</button>
+      </div>
+    </div>
+
+    <div class="card" id="relance-card" style="display:none">
+      <p class="ct">Relance</p>
+      <div class="row">
+        <div><label>Delai depuis le dernier contact</label><input type="text" id="rel-delai" placeholder="ex : 7 jours, 2 semaines"></div>
+        <div><label>Ce qui s est passe depuis</label><input type="text" id="rel-ctx" placeholder="ex : pas de reponse, vu sur LinkedIn..."></div>
+      </div>
+      <button class="gb" id="btn-rel" onclick="genRelance()">Generer la relance</button>
+      <div id="rel-result" style="display:none;margin-top:12px">
+        <div class="oh"><span class="ol">Email de relance</span><button class="cpb" onclick="cp('rel-out')">Copier</button></div>
+        <div class="ob" id="rel-out"></div>
+        <button class="gb warn" style="margin-top:8px" onclick="genRelance()">Generer une nouvelle relance</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding:24px 0 8px;border-top:0.5px solid var(--bd3);margin-top:8px">
+    <button onclick="showPage('ctx',null);document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'))" style="font-size:12px;color:var(--t3);background:transparent;border:none;cursor:pointer;font-family:inherit">
+      Fichier contexte Claude
+    </button>
+  </div>
+
+  <!-- CONTEXTE -->
+  <div class="page" id="page-ctx">
+    <div class="card">
+      <p class="ct">Fichier contexte permanent</p>
+      <p style="font-size:13px;color:var(--t2);margin-bottom:12px;line-height:1.7">Colle ce texte dans les instructions de ton projet Claude.</p>
+      <div class="oh"><span class="ol">Instructions projet Claude</span><button class="cpb" onclick="cp('ctx-out')">Copier</button></div>
+      <div class="ob" id="ctx-out">Tu es l assistant executif de Mehdi Moussaoui, consultant en recrutement specialise dans le secteur pharmaceutique, focus profils terrain : VM, DR, DZ, DSV. Tous tes livrables sont prets a copier-coller sans modification.
+
+CONTEXTE METIER
+- Marche : France, principalement Ile-de-France.
+- Modeles : au succes (anonyme) et RPO (brande).
+- Clients RPO : Servier, Effik.
+- Clients au succes : PiLeJe, EA Pharma, Novartis.
+
+REGLES SOURCING
+- Booleenne classique : titres de postes uniquement, max 5-6 mots-cles, jamais de localisation. 2 versions : generaliste et precise.
+- Booleenne RPS : mots-cles larges avec synonymes, attention faux amis, specialites larges. 2 versions. Jamais de localisation dans la booleenne.
+- Mots-cles deduits par toi depuis la fiche uniquement.
+- Pas de critere sur les annees d experience.
+- Pipeline LinkedIn obligatoire avant envoi.
+
+REGLES ANNONCES ET MESSAGES
+- Au succes : anonyme. RPO : brande.
+- Annonce : zero emoji, zero markdown visible, sections en MAJUSCULES suivi de deux points.
+- Messages : commencer par "Bonjour," sans prenom entre crochets.
+- Message classique : 280-320 caracteres max.
+- InMail : 1600-1800 caracteres, invitation a recommander incluse.
+
+REGLES BD
+- Emails courts : 5-6 lignes max.
+- Ton direct, professionnel, jamais commercial ou generique.
+- Toujours ancrer sur le poste repere et l expertise Mehdi sur ce type de profil.
+- Relances meme ton que le J+0, pas de sur-explication.
+- Signer : Mehdi Moussaoui — Consultant en recrutement specialise Pharma Terrain.
+
+TEMPLATE RAPPORT — 6 SECTIONS
+1. ASPECTS PRATIQUES
+2. SITUATION ACTUELLE
+3. MOTIVATIONS ET OBJECTIFS
+4. COMPETENCES CLES
+5. PROFIL ET PERSONNALITE
+6. EVALUATION POUR LE POSTE</div>
+    </div>
+  </div>
+
+</div>
+<script>
+var mission='r',rptTxt='',rptHist=[],cvMode='txt',cvB64='';
+var bdContact={},emailCtx='';
+var apiKey=localStorage.getItem('mk')||'';
+if(apiKey){document.getElementById('akey').value=apiKey;document.getElementById('kst').innerText='Cle enregistree';}
+
+var SYS_SRC=`Tu es l assistant de Mehdi Moussaoui, consultant en recrutement pharma terrain. Livrables sourcing prets a l emploi.
+REGLES : Booleenne classique = titres de postes UNIQUEMENT, max 5-6 termes, zero localisation, 2 versions (generaliste/precise). Booleenne RPS = mots-cles larges avec synonymes, attention faux amis, pas de sur-restriction specialite, zero localisation, 2 versions. Annonce = zero emoji, zero markdown visible (sections MAJUSCULES + deux points, pas d etoiles). Messages = commencer par "Bonjour," sans prenom entre crochets. Message classique 280-320 car max. InMail 1600-1800 car avec invitation a recommander. Annonce anonyme = jamais le nom du labo. Prompt Recruiter = instructions pour que Claude construise sa propre recherche et l adapte au fil de l eau, sans booleenne toute faite. Reponds UNIQUEMENT en JSON valide sans markdown.`;
+
+var SYS_RPT=`Tu es l assistant de Mehdi Moussaoui, consultant en recrutement pharma. Rapports candidats professionnels concis factuels prets a envoyer.
+STRUCTURE OBLIGATOIRE 6 sections : 1.ASPECTS PRATIQUES 2.SITUATION ACTUELLE 3.MOTIVATIONS ET OBJECTIFS 4.COMPETENCES CLES 5.PROFIL ET PERSONNALITE 6.EVALUATION POUR LE POSTE (BON/MOYEN/INSUFFISANT + points forts + vigilance + recommandation).
+En-tete : COMPTE RENDU CANDIDAT / [Poste] • [Client] / [Nom] / [Date] / Document confidentiel – Usage interne recrutement • Mehdi Moussaoui. Ton : direct, factuel, bullet points concis.`;
+
+var SYS_BD=`Tu es l assistant de Mehdi Moussaoui, consultant en recrutement specialise pharma terrain (VM, DR, DZ, DSV). Tu l aides en business development.
+REGLES EMAILS BD : Courts = 5-6 lignes maximum. Ton direct et professionnel, jamais commercial ou generique. Toujours ancre sur le poste repere et l expertise Mehdi sur ce type de profil pharma terrain. Objet email : court, specifique, pas de formule bateau. Relances = meme ton que le J+0, pas de sur-explication, reference au precedent contact. Signer toujours : Mehdi Moussaoui — Consultant en recrutement specialise Pharma Terrain.`;
+
+function saveKey(){apiKey=document.getElementById('akey').value.trim();localStorage.setItem('mk',apiKey);document.getElementById('kst').innerText=apiKey?'Cle enregistree':'';}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');if(btn)btn.classList.add('active');}
+function setM(t){mission=t;document.getElementById('ts').classList.toggle('on',t==='s');document.getElementById('tr2').classList.toggle('on',t==='r');}
+
+function stab(p,t,btn){
+  var sec=p==='s'?'#page-src':'#page-rpt';
+  var id=p==='s'?'s-'+t:'r-'+t;
+  document.querySelectorAll(sec+' .os').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll(sec+' .tb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function cp(id){
+  navigator.clipboard.writeText(document.getElementById(id).innerText).then(()=>{
+    var orig=event.target.innerText;event.target.innerText='Copie!';setTimeout(()=>event.target.innerText=orig,1500);
+  });
+}
+function setBtn(id,load,txt){var b=document.getElementById(id);b.disabled=load;b.innerHTML=load?'<span class="spin"></span>En cours...':txt;}
+function setCVMode(m){cvMode=m;document.getElementById('cv-txt-btn').classList.toggle('on',m==='txt');document.getElementById('cv-pdf-btn').classList.toggle('on',m==='pdf');document.getElementById('cv-txt-zone').style.display=m==='txt'?'block':'none';document.getElementById('cv-pdf-zone').style.display=m==='pdf'?'block':'none';}
+function handleDrop(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf')handleFile(f);}
+function handleFile(f){if(!f)return;var r=new FileReader();r.onload=function(e){cvB64=e.target.result.split(',')[1];document.getElementById('pdf-drop').classList.add('has');document.getElementById('pdf-drop').innerText=f.name+' — charge';document.getElementById('pdf-st').style.display='block';document.getElementById('pdf-st').innerText='PDF pret.';};r.readAsDataURL(f);}
+
+async function callClaude(sys,msgs){
+  if(!apiKey){alert('Entre ta cle API en haut de la page.');throw new Error('no_key');}
+  var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,system:sys,messages:msgs})});
+  var d=await r.json();
+  if(d.error)throw new Error(d.error.message);
+  return d.content.map(i=>i.text||'').join('');
+}
+
+async function genSrc(){
+  var fiche=document.getElementById('fiche').value.trim();
+  var loc=document.getElementById('loc').value.trim()||'France';
+  var nb=document.getElementById('nb').value.trim()||'25';
+  var ent=document.getElementById('ent').value.trim();
+  if(!fiche){alert('Colle une fiche de poste.');return;}
+  setBtn('btn-src',true,'');
+  var isRpo=mission==='r';
+  var sig=isRpo&&ent?'Talent Acquisition '+ent:'Mehdi Moussaoui — Consultant en recrutement specialise Pharma';
+  var typeAnn=isRpo&&ent?'brandee au nom de '+ent:'anonymisee (JAMAIS le nom du labo, ecrire un laboratoire pharmaceutique specialise en [domaine])';
+  var prompt=`Fiche de poste :\n${fiche}\n\nMission : ${isRpo?'RPO'+(ent?' chez '+ent:''):'au succes'}. Localisation : ${loc} (filtres LinkedIn uniquement, pas dans booleennes). Profils : ${nb}. Signature : ${sig}. Annonce : ${typeAnn}.\n\nJSON avec ces 8 cles exactes :\n{"bool_classic_gen":"booleenne classique generaliste titres larges max 6 termes zero localisation","bool_classic_prec":"booleenne classique precise titres specifiques max 6 termes zero localisation","bool_rps_gen":"booleenne RPS generaliste mots-cles larges synonymes zero localisation","bool_rps_prec":"booleenne RPS poussee mots-cles precis variantes acronymes zero localisation","annonce":"annonce complete ${typeAnn} zero emoji zero markdown sections MAJUSCULES+deux points","msg_classic":"message LinkedIn Bonjour virgule 280-320 car max signe ${sig}","msg_inmail":"InMail 1600-1800 car Bonjour virgule invitation a recommander signe ${sig}","prompt_recruiter":"prompt pour Claude LinkedIn instructions recherche par mots-cles adaptable au fil de l eau sans booleenne toute faite pipeline ${nb} profils localisation ${loc} via filtres"}\nJSON uniquement.`;
+  try{
+    var raw=await callClaude(SYS_SRC,[{role:'user',content:prompt}]);
+    var j=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    document.getElementById('bc1').innerText=j.bool_classic_gen||'';
+    document.getElementById('bc2').innerText=j.bool_classic_prec||'';
+    document.getElementById('rps1').innerText=j.bool_rps_gen||'';
+    document.getElementById('rps2').innerText=j.bool_rps_prec||'';
+    document.getElementById('ann').innerText=j.annonce||'';
+    document.getElementById('ann-lbl').innerText=isRpo&&ent?'Annonce brandee — '+ent:'Annonce anonymisee';
+    document.getElementById('mlc').innerText=j.msg_classic||'';
+    document.getElementById('inm').innerText=j.msg_inmail||'';
+    document.getElementById('prm').innerText=j.prompt_recruiter||'';
+  }catch(e){if(e.message!=='no_key')alert('Erreur : '+e.message);}
+  setBtn('btn-src',false,'Generer les livrables sourcing');
+}
+
+var allOffres=[], currentPage=0, perPage=20;
+
+function renderPage(){
+  var tbody=document.getElementById('veille-body');
+  tbody.innerHTML='';
+  var start=currentPage*perPage;
+  var slice=allOffres.slice(start,start+perPage);
+  var txtLines=[];
+  slice.forEach(function(o){
+    var heat=o.chaleur||1;
+    var heatHtml=heat>=8?'<span class="pill" style="background:#faeeda;color:#633806">Tres chaud</span>':heat>=5?'<span class="pill" style="background:#e6f1fb;color:#0c447c">Chaud</span>':'<span class="pill" style="background:var(--bg2);color:var(--t2)">Tiede</span>';
+    var tr=document.createElement('tr');
+    tr.style.cursor='pointer';
+    tr.innerHTML='<td>'+heatHtml+'</td><td>'+o.poste+'</td><td>'+o.entreprise+'</td><td>'+o.localisation+'</td><td style="white-space:nowrap;font-size:11px;color:var(--t2)">'+( o.date_parution||'N/A')+'</td><td>'+o.contact_rh+'</td><td>'+o.decideur+'</td>';
+    tr.onclick=function(){
+      document.getElementById('bd-ent').value=o.entreprise;
+      document.getElementById('bd-poste-rep').value=o.poste+' — '+o.localisation;
+      document.getElementById('bd-contact').value=o.contact_rh!=='A identifier'?o.contact_rh:'';
+      document.getElementById('bd-titre').value=o.decideur!=='A identifier'?o.decideur:'';
+      document.getElementById('email-result').style.display='none';
+      document.getElementById('relance-card').style.display='none';
+      window.scrollTo({top:document.getElementById('page-bd').offsetTop+400,behavior:'smooth'});
+      alert('Contact pre-rempli. Ajuste si besoin et clique Generer l email J+0.');
+    };
+    tbody.appendChild(tr);
+    txtLines.push((o.chaleur>=8?'[CHAUD] ':'')+ o.poste+' | '+o.entreprise+' | '+o.localisation+' | '+(o.date_parution||'N/A')+' | '+o.contact_rh+' | '+o.decideur);
+  });
+  document.getElementById('veille-table-txt').innerText=txtLines.join('\n');
+  var total=allOffres.length;
+  var totalPages=Math.ceil(total/perPage);
+  document.getElementById('page-info').innerText='Page '+(currentPage+1)+' / '+totalPages+' — '+total+' offres';
+  document.getElementById('btn-prev').style.display=currentPage>0?'inline-block':'none';
+  document.getElementById('btn-next').style.display=currentPage<totalPages-1?'inline-block':'none';
+  document.getElementById('veille-count').innerText=total+' offres identifiees — triees du plus chaud au moins chaud';
+}
+
+function changePage(dir){
+  currentPage+=dir;
+  renderPage();
+  window.scrollTo({top:document.getElementById('veille-result').offsetTop-20,behavior:'smooth'});
+}
+
+async function genVeille(){
+  var postes=document.getElementById('bd-postes').value.trim()||'Visiteur Medical, Directeur Regional, Directeur de Zone, Directeur des Ventes';
+  var zone=document.getElementById('bd-zone').value.trim()||'France';
+  var prec=document.getElementById('bd-prec').value.trim();
+  setBtn('btn-veille',true,'');
+  var prompt=`Tu es l assistant BD de Mehdi Moussaoui, consultant en recrutement pharma terrain. Genere une liste exhaustive d offres d emploi pharma terrain actuelles.
+
+Postes : ${postes}
+Zone : ${zone}${prec?'
+Precision : '+prec:''}
+
+Genere un JSON avec une cle "offres" contenant un tableau de 60 a 100 objets, chacun avec ces champs :
+- poste : intitule exact du poste
+- entreprise : nom du laboratoire pharmaceutique
+- localisation : ville ou departement precis
+- date_parution : date approximative de parution au format "JJ/MM/AAAA" (offres des 3 derniers mois)
+- contact_rh : prenom nom et fonction si identifiable, sinon "A identifier"
+- decideur : directeur regional, directeur des ventes ou DG selon la taille, sinon "A identifier"
+- chaleur : score de 1 a 10 indiquant l urgence et l opportunite BD (10 = offre recente + poste en tension + contact identifie + labo actif sur ce type de profil, 1 = offre ancienne + contact inconnu)
+
+IMPORTANT : trie le tableau du score chaleur le plus eleve au plus bas. Varie les entreprises (grands labos, labos mid-size, structures en croissance), les postes et les regions. Represente fidelement le marche pharma terrain francais actuel. JSON uniquement.`;
+  try{
+    var raw=await callClaude(SYS_BD,[{role:'user',content:prompt}]);
+    var j=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    allOffres=j.offres||[];
+    currentPage=0;
+    renderPage();
+    document.getElementById('veille-result').style.display='block';
+  }catch(e){if(e.message!=='no_key')alert('Erreur : '+e.message);}
+  setBtn('btn-veille',false,'Lancer la recherche d offres');
+}
+
+async function genEmail(){
+  var contact=document.getElementById('bd-contact').value.trim()||'[Contact]';
+  var titre=document.getElementById('bd-titre').value.trim()||'';
+  var ent=document.getElementById('bd-ent').value.trim()||'[Entreprise]';
+  var poste=document.getElementById('bd-poste-rep').value.trim()||'[Poste]';
+  var ctx=document.getElementById('bd-ctx').value.trim();
+  setBtn('btn-email',true,'');
+  bdContact={contact,titre,ent,poste,ctx};
+  var clientsRef=`Clients actuels de Mehdi (a mentionner selectivement selon pertinence par rapport a l entreprise prospectee) :
+- RPO (integre chez le client) : Servier, Effik
+- Au succes : PiLeJe, EA Pharma, Novartis
+Regle : cite uniquement les 1-2 clients les plus pertinents par rapport au labo prospecte (meme segment therapeutique, meme taille, meme type de profils). Si aucun n est pertinent, ne pas en citer.`;
+
+  var prompt=`Genere un email de prospection BD pour Mehdi Moussaoui.
+
+Contact : ${contact}${titre?' — '+titre:''}
+Entreprise : ${ent}
+Poste repere : ${poste}
+${ctx?'Contexte : '+ctx:''}
+
+${clientsRef}
+
+REGLES ABSOLUES :
+- 5 a 6 lignes de corps maximum
+- Objet email : court et specifique au poste repere
+- Commence par "Bonjour ${contact.split(' ')[0]},"
+- Ancre sur le poste repere et l expertise Mehdi sur ce type de profil pharma terrain
+- Integre naturellement 1-2 selling points clients pertinents (pas en liste, dans le corps du texte de facon fluide)
+- Ton direct et professionnel, pas commercial ni generique
+- Pas de formules bateau ("je me permets de...", "suite a votre annonce...")
+- Se termine par une proposition concrete d echange
+- Signature : Mehdi Moussaoui — Consultant en recrutement specialise Pharma Terrain
+
+Genere le JSON : {"objet":"...","corps":"..."}
+JSON uniquement.`;
+  try{
+    var raw=await callClaude(SYS_BD,[{role:'user',content:prompt}]);
+    var j=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    emailCtx='Objet : '+j.objet+'\n\n'+j.corps;
+    document.getElementById('email-out').innerText='Objet : '+j.objet+'\n\n'+j.corps;
+    document.getElementById('email-result').style.display='block';
+  }catch(e){if(e.message!=='no_key')alert('Erreur : '+e.message);}
+  setBtn('btn-email',false,'Generer l email J+0');
+}
+
+function showRelance(){
+  document.getElementById('relance-card').style.display='block';
+  document.getElementById('rel-result').style.display='none';
+  window.scrollTo({top:document.getElementById('relance-card').offsetTop,behavior:'smooth'});
+}
+
+async function genRelance(){
+  var delai=document.getElementById('rel-delai').value.trim()||'7 jours';
+  var ctx=document.getElementById('rel-ctx').value.trim()||'pas de reponse';
+  setBtn('btn-rel',true,'');
+  var prompt=`Genere un email de relance pour Mehdi Moussaoui.
+
+Contact precedent : ${bdContact.contact||'[Contact]'}${bdContact.titre?' — '+bdContact.titre:''}
+Entreprise : ${bdContact.ent||'[Entreprise]'}
+Poste repere : ${bdContact.poste||'[Poste]'}
+Delai depuis dernier contact : ${delai}
+Situation : ${ctx}
+
+Email precedent envoye :
+${emailCtx}
+
+REGLES :
+- 4 a 5 lignes maximum
+- Meme ton que l email initial, direct et professionnel
+- Reference discrete au precedent contact
+- Pas de sur-explication ni de justification
+- Nouvelle proposition d echange concrete
+- Signature : Mehdi Moussaoui — Consultant en recrutement specialise Pharma Terrain
+
+JSON : {"objet":"...","corps":"..."}
+JSON uniquement.`;
+  try{
+    var raw=await callClaude(SYS_BD,[{role:'user',content:prompt}]);
+    var j=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    var txt='Objet : '+j.objet+'\n\n'+j.corps;
+    emailCtx=txt;
+    document.getElementById('rel-out').innerText=txt;
+    document.getElementById('rel-result').style.display='block';
+  }catch(e){if(e.message!=='no_key')alert('Erreur : '+e.message);}
+  setBtn('btn-rel',false,'Generer la relance');
+}
+
+async function genRpt(){
+  var fiche=document.getElementById('r-fiche').value.trim();
+  var notes=document.getElementById('r-notes').value.trim();
+  var tr=document.getElementById('r-tr').value.trim();
+  var nom=document.getElementById('r-nom').value.trim()||'[Candidat]';
+  var poste=document.getElementById('r-poste').value.trim()||'[Poste]';
+  var client=document.getElementById('r-client').value.trim()||'[Client]';
+  var date=document.getElementById('r-date').value.trim()||new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  var cvTxt=cvMode==='txt'?document.getElementById('r-cv').value.trim():'';
+  if(!cvTxt&&!cvB64&&!notes){alert('Ajoute au moins le CV ou tes notes.');return;}
+  setBtn('btn-rpt',true,'');
+  var userPrompt=`Redige un rapport candidat complet.\nCandidat : ${nom}\nPoste : ${poste} chez ${client}\nDate : ${date}\nRedacteur : Mehdi Moussaoui\n\nFiche de poste : ${fiche||'non fournie'}\nCV : ${cvTxt||'voir PDF joint'}\nNotes : ${notes||'non fournies'}\nTranscript : ${tr||'non fourni'}`;
+  var msgs=cvB64&&cvMode==='pdf'?[{role:'user',content:[{type:'document',source:{type:'base64',media_type:'application/pdf',data:cvB64}},{type:'text',text:userPrompt}]}]:[{role:'user',content:userPrompt}];
+  try{
+    var texte=await callClaude(SYS_RPT,msgs);
+    rptTxt=texte;rptHist=[...msgs,{role:'assistant',content:texte}];
+    document.getElementById('r-out').innerText=texte;
+    document.getElementById('fb').classList.add('on');
+    document.getElementById('r-dl-st').innerText='Rapport pret.';
+    document.getElementById('dlb').style.display='block';
+  }catch(e){if(e.message!=='no_key')alert('Erreur : '+e.message);}
+  setBtn('btn-rpt',false,'Generer le rapport');
+}
+
+async function amelRpt(){
+  var fbin=document.getElementById('fb-in').value.trim();
+  if(!fbin||!rptTxt){alert('Genere d abord un rapport.');return;}
+  var btn=document.querySelector('#fb .gb');btn.disabled=true;btn.innerHTML='<span class="spin"></span>Application...';
+  try{
+    var msgs=[...rptHist,{role:'user',content:'Retours : '+fbin+'\n\nRegenere le rapport complet en integrant ces corrections. Meme structure 6 sections, meme en-tete.'}];
+    var texte=await callClaude(SYS_RPT,msgs);
+    rptTxt=texte;rptHist.push({role:'user',content:fbin},{role:'assistant',content:texte});
+    document.getElementById('r-out').innerText=texte;
+    document.getElementById('fb-in').value='';
+  }catch(e){if(e.message!=='no_key')alert('Erreur : '+e.message);}
+  btn.disabled=false;btn.innerHTML='Appliquer les retours';
+}
+
+function dlTxt(){
+  if(!rptTxt)return;
+  var nom=document.getElementById('r-nom').value.trim().replace(/\s+/g,'_')||'Candidat';
+  var blob=new Blob([rptTxt],{type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='Rapport_'+nom+'.txt';a.click();URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
