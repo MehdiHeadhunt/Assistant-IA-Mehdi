@@ -1,31 +1,26 @@
 // api/cron-scraping.js
-// Cron Vercel : tourne tous les jours à 6h
-// Scrape Serper, parse, agrège, stocke dans Supabase
+// V5 : utilise France Travail au lieu de Serper
 
 import { createClient } from '@supabase/supabase-js';
-import { fetchAllOffers } from '../lib/serper.js';
+import { fetchAllOffers } from '../lib/francetravail.js';
 import { parseOffers } from '../lib/parser.js';
 import { aggregateAndScore } from '../lib/scoring.js';
 
 export default async function handler(req, res) {
-  // Sécurité basique : Vercel Cron envoie un header spécifique
-  // En dev/test manuel, on peut le bypass avec un secret
-  const authHeader = req.headers.authorization;
-  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    // Si CRON_SECRET non défini, on laisse passer (pour faciliter le setup)
-  }
-  
   const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_KEY
   );
   
   const startTime = Date.now();
-  console.log('[CRON] Démarrage scraping');
+  console.log('[CRON] Démarrage scraping France Travail');
   
   try {
-    // 1. Scrape Serper
-    const rawResults = await fetchAllOffers(process.env.SERPER_API_KEY);
+    // 1. Scrape France Travail
+    const rawResults = await fetchAllOffers({
+      clientId: process.env.FT_CLIENT_ID,
+      clientSecret: process.env.FT_CLIENT_SECRET
+    });
     console.log(`[CRON] ${rawResults.length} résultats bruts récupérés`);
     
     // 2. Parse
@@ -97,4 +92,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: err.message });
   }
 }
-
