@@ -5,53 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Assistant Mehdi</title>
 <style>
-:root{--bg1:#fff;--bg2:#f5f5f0;--bg3:#eeede8;--bgi:#e6f1fb;--bgs:#eaf3de;--bgw:#faeeda;--t1:#1a1a18;--t2:#6b6b66;--t3:#9c9a92;--ti:#0c447c;--ts:#27500a;--tw:#633806;--bd3:rgba(0,0,0,0.12);--bd2:rgba(0,0,0,0.22);--bd1:rgba(0,0,0,0.35);--rmd:8px;--rlg:12px}
-@media(prefers-color-scheme:dark){:root{--bg1:#1e1e1c;--bg2:#2a2a27;--bg3:#333330;--bgi:#042c53;--bgs:#173404;--bgw:#412402;--t1:#e8e6de;--t2:#a8a69e;--t3:#6e6c66;--ti:#85b7eb;--ts:#97c459;--tw:#fac775;--bd3:rgba(255,255,255,0.1);--bd2:rgba(255,255,255,0.18);--bd1:rgba(255,255,255,0.28)}}
+:root{--bg0:#0d0d0c;--bg1:#17171a;--bg2:#1f1f23;--bg3:#0d0d0c;--bgi:#0a2e5c;--bgs:#0f3a18;--bgw:#3d2806;--bge:#401616;--t1:#ededea;--t2:#94928c;--t3:#5a5853;--ti:#6ba5e8;--ts:#8bc755;--tw:#f0b665;--te:#e87575;--acc:#d4a574;--bd3:rgba(255,255,255,0.06);--bd2:rgba(255,255,255,0.12);--bd1:rgba(255,255,255,0.22);--rmd:8px;--rlg:14px;--shadow:0 1px 3px rgba(0,0,0,0.3),0 0 0 0.5px rgba(255,255,255,0.05)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg3);color:var(--t1);padding:24px 16px;min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg0);color:var(--t1);padding:24px 16px;min-height:100vh;-webkit-font-smoothing:antialiased;background-image:radial-gradient(circle at top right,rgba(212,165,116,0.04),transparent 40%),radial-gradient(circle at bottom left,rgba(107,165,232,0.03),transparent 40%);background-attachment:fixed}
 .wrap{max-width:780px;margin:0 auto}
 .hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
-.hdr h1{font-size:20px;font-weight:500}
+.hdr h1{font-size:20px;font-weight:500;letter-spacing:-0.01em}
 .hdr p{font-size:12px;color:var(--t2);margin-top:2px}
-.badges{display:flex;gap:8px;flex-wrap:wrap}
-.badge{font-size:11px;padding:3px 10px;border-radius:20px}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:10px;padding:3px 9px;border-radius:20px;letter-spacing:0.02em;text-transform:uppercase}
 .live{background:var(--bgs);color:var(--ts)}
-.nav{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.nb{font-size:13px;padding:7px 16px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit;transition:all .15s}
-.nb.active{background:var(--bgi);color:var(--ti);border-color:transparent}
+.nav{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.nb{font-size:13px;padding:8px 16px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit;transition:all .15s}
+.nb:hover{color:var(--t1);border-color:var(--bd1)}
+.nb.active{background:var(--bgi);color:var(--ti);border-color:transparent;font-weight:500}
 .page{display:none}.page.active{display:block}
-.card{background:var(--bg1);border:0.5px solid var(--bd3);border-radius:var(--rlg);padding:1.25rem;margin-bottom:14px}
-.ct{font-size:14px;font-weight:500;margin-bottom:12px;color:var(--t1)}
+.card{background:var(--bg1);border:0.5px solid var(--bd3);border-radius:var(--rlg);padding:1.25rem;margin-bottom:14px;box-shadow:var(--shadow)}
+.ct{font-size:14px;font-weight:500;margin-bottom:12px;color:var(--t1);letter-spacing:-0.005em}
 label{font-size:12px;color:var(--t2);display:block;margin-bottom:5px}
-input[type=text],input[type=password],textarea{width:100%;font-size:13px;padding:9px 12px;border-radius:var(--rmd);border:0.5px solid var(--bd3);background:var(--bg2);color:var(--t1);font-family:inherit;line-height:1.6}
+input[type=text],input[type=password],textarea{width:100%;font-size:13px;padding:9px 12px;border-radius:var(--rmd);border:0.5px solid var(--bd3);background:var(--bg2);color:var(--t1);font-family:inherit;line-height:1.6;transition:border-color .15s}
 textarea{resize:vertical}
-input:focus,textarea:focus{outline:none;border-color:var(--bd1)}
+input:focus,textarea:focus{outline:none;border-color:var(--acc)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.togrow{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-.tog{font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
+.togrow{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tog{font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit;transition:all .15s}
+.tog:hover{color:var(--t1)}
 .tog.on{background:var(--bgs);color:var(--ts);border-color:transparent}
-.ob{background:var(--bg2);border-radius:var(--rmd);padding:1rem 1.25rem;font-size:13px;line-height:1.8;color:var(--t1);white-space:pre-wrap;word-break:break-word;min-height:60px}
+.ob{background:var(--bg2);border-radius:var(--rmd);padding:1rem 1.25rem;font-size:13px;line-height:1.8;color:var(--t1);white-space:pre-wrap;word-break:break-word;min-height:60px;border:0.5px solid var(--bd3)}
 .oh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .ol{font-size:12px;font-weight:500;color:var(--t2)}
-.cpb{font-size:11px;padding:4px 10px;border-radius:var(--rmd);cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
-.gb{width:100%;padding:10px;font-size:14px;font-weight:500;border-radius:var(--rmd);cursor:pointer;background:var(--bgi);color:var(--ti);border:none;margin-top:8px;font-family:inherit}
+.cpb{font-size:11px;padding:4px 10px;border-radius:var(--rmd);cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit;transition:all .15s}
+.cpb:hover{color:var(--t1);border-color:var(--bd1)}
+.gb{width:100%;padding:10px;font-size:14px;font-weight:500;border-radius:var(--rmd);cursor:pointer;background:var(--bgi);color:var(--ti);border:none;margin-top:8px;font-family:inherit;transition:transform .1s}
+.gb:hover{filter:brightness(1.1)}
 .gb:active{transform:scale(0.99)}
 .gb.sec{background:var(--bg2);color:var(--t1);border:0.5px solid var(--bd2)}
 .gb.warn{background:var(--bgw);color:var(--tw);border:none}
 .gb.suc{background:var(--bgs);color:var(--ts);border:none}
 .dlb{width:100%;padding:9px;font-size:13px;font-weight:500;border-radius:var(--rmd);cursor:pointer;background:var(--bgs);color:var(--ts);border:none;margin-top:8px;font-family:inherit}
 .tr{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.tb{font-size:12px;padding:5px 12px;border-radius:var(--rmd);cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
-.tb.active{background:var(--bg1);color:var(--t1);border-color:var(--bd1)}
+.tb{font-size:12px;padding:5px 12px;border-radius:var(--rmd);cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit;transition:all .15s}
+.tb:hover{color:var(--t1)}
+.tb.active{background:var(--bg2);color:var(--t1);border-color:var(--bd1)}
 .os{display:none}.os.active{display:block}
 .fb{background:var(--bg2);border:0.5px solid var(--bd3);border-radius:var(--rmd);padding:1rem;margin-top:12px;display:none}
 .fb.on{display:block}
-.apib{background:var(--bgw);border-radius:var(--rmd);padding:10px 14px;font-size:12px;color:var(--tw);margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.apib input{flex:1;min-width:140px;background:var(--bg1);border:0.5px solid var(--bd2);color:var(--t1);padding:6px 10px;border-radius:var(--rmd);font-size:12px;font-family:inherit}
+.apib{background:var(--bg1);border:0.5px solid var(--bd3);border-radius:var(--rmd);padding:10px 14px;font-size:12px;color:var(--t2);margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.apib input{flex:1;min-width:140px;background:var(--bg2);border:0.5px solid var(--bd2);color:var(--t1);padding:6px 10px;border-radius:var(--rmd);font-size:12px;font-family:inherit}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--bd2);border-top-color:var(--ti);border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:6px}
 @keyframes sp{to{transform:rotate(360deg)}}
 .mb12{margin-bottom:12px}
-.pdf-drop{border:1.5px dashed var(--bd2);border-radius:var(--rmd);padding:1rem;text-align:center;font-size:13px;color:var(--t2);cursor:pointer;background:var(--bg2);margin-bottom:8px}
+.pdf-drop{border:1.5px dashed var(--bd2);border-radius:var(--rmd);padding:1rem;text-align:center;font-size:13px;color:var(--t2);cursor:pointer;background:var(--bg2);margin-bottom:8px;transition:all .15s}
+.pdf-drop:hover{border-color:var(--bd1);color:var(--t1)}
 .pdf-drop.has{border-color:var(--ts);color:var(--ts);background:var(--bgs)}
 .ptog{display:flex;gap:8px;margin-bottom:8px}
 .pt{font-size:12px;padding:4px 12px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
@@ -62,17 +67,68 @@ input:focus,textarea:focus{outline:none;border-color:var(--bd1)}
 .bd-table tr:hover td{background:var(--bg2)}
 .pill{font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap}
 .jb-links{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
-.jb-link{display:inline-flex;align-items:center;font-size:13px;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;color:#fff}
+.jb-link{display:inline-flex;align-items:center;font-size:13px;font-weight:500;padding:8px 16px;border-radius:20px;text-decoration:none;color:#fff;transition:transform .1s}
+.jb-link:hover{transform:translateY(-1px)}
 .ctr{font-size:11px;padding:3px 8px;border-radius:20px;font-weight:500}
 .ctr.ok{background:var(--bgs);color:var(--ts)}
 .ctr.warn{background:var(--bgw);color:var(--tw)}
-.ctr.bad{background:#fcebeb;color:#791f1f}
+.ctr.bad{background:var(--bge);color:var(--te)}
 .hist-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--bg2);border-radius:var(--rmd);margin-bottom:6px;cursor:pointer;font-size:13px}
 .hist-item:hover{background:var(--bg3)}
 .switch-row{display:flex;gap:8px;margin-top:8px}
-.sw-btn{font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit}
+.sw-btn{font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit;transition:all .15s}
+.sw-btn:hover{color:var(--t1)}
 .sw-btn.on{background:var(--bgi);color:var(--ti);border-color:transparent}
-@media(max-width:600px){.row{grid-template-columns:1fr}}
+
+/* ==== TRIGGERS PHARMA ==== */
+.trig-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;flex-wrap:wrap;gap:12px}
+.trig-meta{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:10px}
+.trig-filters{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.trig-filters input[type=text]{flex:1;min-width:180px}
+.trig-check{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2);cursor:pointer;padding:5px 12px;border-radius:20px;border:0.5px solid var(--bd2);background:transparent}
+.trig-check input{accent-color:var(--acc);margin:0}
+.trig-check:hover{color:var(--t1)}
+.trig-empty{padding:32px 16px;text-align:center;color:var(--t3);font-size:13px;background:var(--bg2);border-radius:var(--rmd);border:0.5px dashed var(--bd2)}
+.lab-card{background:var(--bg1);border:0.5px solid var(--bd3);border-radius:var(--rlg);padding:1rem 1.25rem;margin-bottom:10px;box-shadow:var(--shadow);transition:border-color .15s}
+.lab-card:hover{border-color:var(--bd2)}
+.lab-card.contacted{opacity:0.55}
+.lab-card.ignored{opacity:0.3}
+.lab-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.lab-name{font-size:15px;font-weight:500;color:var(--t1);margin:0 0 6px 0;letter-spacing:-0.005em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lab-stats{font-size:11px;color:var(--t2);display:flex;gap:12px;flex-wrap:wrap}
+.lab-score{font-size:13px;font-weight:600;padding:5px 12px;border-radius:20px;white-space:nowrap;background:var(--bgi);color:var(--ti)}
+.lab-score.med{background:var(--bgw);color:var(--tw)}
+.lab-score.hi{background:var(--bge);color:var(--te)}
+.lab-fonctions{display:flex;gap:5px;margin:8px 0;flex-wrap:wrap}
+.fn-tag{padding:2px 9px;background:var(--bg2);border-radius:14px;font-size:11px;color:var(--t2);border:0.5px solid var(--bd3)}
+.fn-tag.mgmt{background:var(--bgw);color:var(--tw);border-color:transparent}
+.lab-acts{display:flex;gap:6px;flex-wrap:wrap;border-top:0.5px solid var(--bd3);padding-top:10px;margin-top:10px}
+.lab-btn{font-size:11px;padding:5px 11px;border-radius:var(--rmd);cursor:pointer;border:0.5px solid var(--bd2);background:transparent;color:var(--t2);font-family:inherit;transition:all .15s}
+.lab-btn:hover{color:var(--t1);border-color:var(--bd1)}
+.lab-btn.pri{background:var(--bgi);color:var(--ti);border-color:transparent}
+.lab-btn.pri:hover{filter:brightness(1.15)}
+.lab-btn.suc{background:var(--bgs);color:var(--ts);border-color:transparent}
+.lab-btn.dan{color:var(--te);border-color:rgba(232,117,117,0.3)}
+.status-tag{font-size:9px;padding:2px 7px;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.status-tag.contacted{background:var(--bgi);color:var(--ti)}
+.status-tag.ignored{background:var(--bg3);color:var(--t3)}
+.offers-box{margin-top:10px;padding:10px 12px;background:var(--bg0);border:0.5px solid var(--bd3);border-radius:var(--rmd);display:none}
+.offers-box.on{display:block}
+.off-item{padding:6px 0;border-bottom:0.5px solid var(--bd3);font-size:12px;line-height:1.6}
+.off-item:last-child{border-bottom:none}
+.off-item a{color:var(--ti);text-decoration:none}
+.off-item a:hover{text-decoration:underline}
+.off-meta{color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:0.05em}
+
+/* Modal email Triggers */
+.modal-back{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px}
+.modal-back.on{display:flex}
+.modal-box{background:var(--bg1);border:0.5px solid var(--bd2);border-radius:var(--rlg);padding:20px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.modal-box h3{font-size:15px;font-weight:500;margin-bottom:12px;letter-spacing:-0.005em}
+.modal-box textarea{min-height:280px}
+.modal-acts{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+
+@media(max-width:600px){.row{grid-template-columns:1fr}.hdr{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -85,6 +141,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--bd1)}
     <span class="badge live">BD</span>
     <span class="badge live">Rapports</span>
     <span class="badge live">LinkedIn</span>
+    <span class="badge live">Triggers</span>
   </div>
 </div>
 
@@ -102,6 +159,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--bd1)}
   <button class="nb" id="nav-bd">Business development</button>
   <button class="nb" id="nav-rpt">Rapports candidats</button>
   <button class="nb" id="nav-li">Copilote LinkedIn</button>
+  <button class="nb" id="nav-trig">Triggers Pharma</button>
 </div>
 
 <!-- SOURCING -->
@@ -408,7 +466,49 @@ input:focus,textarea:focus{outline:none;border-color:var(--bd1)}
 
 </div>
 
-<!-- FOOTER -->
+<!-- TRIGGERS PHARMA -->
+<div class="page" id="page-trig">
+  <div class="card">
+    <div class="trig-header">
+      <div>
+        <p class="ct" style="margin:0 0 4px 0">Triggers Pharma</p>
+        <p style="font-size:12px;color:var(--t2);margin:0">Labos avec pic d'activité recrutement (30j glissants) — détection de besoins avant concurrence</p>
+      </div>
+      <div class="trig-meta">
+        <span id="trig-last-update">—</span>
+        <button class="cpb" id="trig-refresh">↻ Rafraîchir</button>
+      </div>
+    </div>
+    <div class="trig-filters">
+      <input type="text" id="trig-search" placeholder="Filtrer par labo...">
+      <label class="trig-check">
+        <input type="checkbox" id="trig-hide-contacted">
+        Masquer contactés récents
+      </label>
+    </div>
+    <div id="trig-loading" class="trig-empty">Chargement...</div>
+    <div id="trig-empty" class="trig-empty" style="display:none">
+      Aucun signal pour le moment. Le cron tourne tous les jours à 6h.<br>
+      <span style="font-size:11px;color:var(--t3);display:inline-block;margin-top:6px">Tu peux le déclencher manuellement depuis Vercel → Settings → Cron Jobs → Run.</span>
+    </div>
+    <div id="trig-list"></div>
+  </div>
+</div>
+
+<!-- MODAL EMAIL TRIGGERS -->
+<div class="modal-back" id="trig-modal">
+  <div class="modal-box">
+    <h3 id="trig-modal-title">Email de prospection</h3>
+    <label>Objet</label>
+    <input type="text" id="trig-modal-subject" style="margin-bottom:12px">
+    <label>Corps du mail</label>
+    <textarea id="trig-modal-body"></textarea>
+    <div class="modal-acts">
+      <button class="cpb" onclick="document.getElementById('trig-modal').classList.remove('on')">Fermer</button>
+      <button class="lab-btn pri" id="trig-modal-copy">Copier tout (objet + corps)</button>
+    </div>
+  </div>
+</div>
 <div style="text-align:center;padding:24px 0 8px;border-top:0.5px solid var(--bd3);margin-top:8px">
   <button id="btn-ctx" style="font-size:12px;color:var(--t3);background:transparent;border:none;cursor:pointer;font-family:inherit">Fichier contexte Claude</button>
 </div>
@@ -526,7 +626,7 @@ var SYS_BD = [
 ].join(' ');
 
 // ---- NAV ----
-['src','bd','rpt','li'].forEach(function(id) {
+['src','bd','rpt','li','trig'].forEach(function(id) {
   document.getElementById('nav-' + id).addEventListener('click', function() { showPage(id); });
 });
 function showPage(id) {
@@ -535,6 +635,7 @@ function showPage(id) {
   document.getElementById('page-' + id).classList.add('active');
   document.getElementById('nav-' + id).classList.add('active');
   document.getElementById('ctx-panel').style.display = 'none';
+  if (id === 'trig') loadTriggers();
 }
 
 // ---- KEYS ----
@@ -1195,6 +1296,185 @@ document.getElementById('btn-li-gen').addEventListener('click', async function()
   document.getElementById('li-result').style.display = 'block';
   setBtn('btn-li-gen', false, 'Generer les prompts analyse');
 });
+
+// ==========================================================
+// TRIGGERS PHARMA — dashboard des labos avec signaux forts
+// ==========================================================
+var triggersData = [];
+var triggersFiltered = [];
+
+async function loadTriggers() {
+  var loading = document.getElementById('trig-loading');
+  var empty = document.getElementById('trig-empty');
+  var list = document.getElementById('trig-list');
+  loading.style.display = 'block';
+  empty.style.display = 'none';
+  list.innerHTML = '';
+  try {
+    var response = await fetch('/api/triggers');
+    var data = await response.json();
+    loading.style.display = 'none';
+    if (!data.labos || data.labos.length === 0) {
+      empty.style.display = 'block';
+      return;
+    }
+    triggersData = data.labos;
+    if (data.derniere_maj) {
+      var d = new Date(data.derniere_maj);
+      document.getElementById('trig-last-update').textContent = 
+        'Dernière maj : ' + d.toLocaleString('fr-FR', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'});
+    }
+    filterTriggers();
+  } catch(err) {
+    loading.style.display = 'none';
+    list.innerHTML = '<div class="trig-empty">Erreur de chargement : ' + err.message + '</div>';
+  }
+}
+
+function filterTriggers() {
+  var search = (document.getElementById('trig-search').value || '').toLowerCase();
+  var hideContacted = document.getElementById('trig-hide-contacted').checked;
+  triggersFiltered = triggersData.filter(function(lab) {
+    if (search && lab.labo.toLowerCase().indexOf(search) === -1) return false;
+    if (hideContacted && lab.action && lab.action.status === 'contacted') {
+      var daysSince = (Date.now() - new Date(lab.action.date_action)) / 86400000;
+      if (daysSince < 30) return false;
+    }
+    return true;
+  });
+  renderTriggers();
+}
+
+function renderTriggers() {
+  var list = document.getElementById('trig-list');
+  if (triggersFiltered.length === 0) {
+    list.innerHTML = '<div class="trig-empty">Aucun résultat</div>';
+    return;
+  }
+  list.innerHTML = triggersFiltered.map(renderLabCard).join('');
+}
+
+function renderLabCard(lab) {
+  var scoreClass = lab.score >= 80 ? 'hi' : (lab.score >= 50 ? 'med' : '');
+  var cardClass = lab.action ? lab.action.status : '';
+  var fonctionsHtml = Object.keys(lab.fonctions || {}).map(function(f) {
+    var n = lab.fonctions[f];
+    var mgmt = ['DR','DZ','DSV'].indexOf(f) !== -1;
+    return '<span class="fn-tag ' + (mgmt ? 'mgmt' : '') + '">' + f + ' × ' + n + '</span>';
+  }).join('');
+  var regions = (lab.regions || []).join(', ') || '—';
+  var statusTag = lab.action 
+    ? '<span class="status-tag ' + lab.action.status + '">' + (lab.action.status === 'contacted' ? 'Contacté' : 'Ignoré') + '</span>'
+    : '';
+  var offersHtml = (lab.offres || []).map(function(o) {
+    var src = (o.source || '').replace('-', ' ');
+    return '<div class="off-item"><span class="off-meta">' + o.fonction + ' · ' + (o.region || '—') + ' · ' + src + '</span><br>' +
+      '<a href="' + escapeAttr(o.url) + '" target="_blank" rel="noopener">' + escapeHtml(o.titre) + '</a></div>';
+  }).join('');
+  var safeId = lab.labo.replace(/[^a-zA-Z0-9]/g, '_');
+  return '<div class="lab-card ' + cardClass + '" id="lab-' + safeId + '">' +
+    '<div class="lab-head">' +
+      '<div style="flex:1;min-width:0">' +
+        '<h3 class="lab-name">' + escapeHtml(lab.labo) + ' ' + statusTag + '</h3>' +
+        '<div class="lab-stats">' +
+          '<span>' + lab.nb_postes_30j + ' postes / 30j</span>' +
+          '<span>' + regions + '</span>' +
+        '</div>' +
+        '<div class="lab-fonctions">' + fonctionsHtml + '</div>' +
+      '</div>' +
+      '<div class="lab-score ' + scoreClass + '">' + lab.score + '</div>' +
+    '</div>' +
+    '<div class="lab-acts">' +
+      '<button class="lab-btn" onclick="toggleOffers(\'' + safeId + '\')">Voir ' + lab.nb_postes_30j + ' offres</button>' +
+      '<button class="lab-btn pri" onclick="openLinkedInDecideurs(\'' + escapeJs(lab.labo) + '\')">Identifier décideurs</button>' +
+      '<button class="lab-btn pri" onclick="openTrigEmail(\'' + escapeJs(lab.labo) + '\', ' + lab.nb_postes_30j + ', \'' + escapeJs(regions) + '\', ' + escapeJs(JSON.stringify(lab.fonctions)) + ')">Email prospection</button>' +
+      (lab.action 
+        ? '<button class="lab-btn" onclick="markLab(\'' + escapeJs(lab.labo) + '\', \'reset\')">↶ Réactiver</button>'
+        : '<button class="lab-btn suc" onclick="markLab(\'' + escapeJs(lab.labo) + '\', \'contacted\')">✓ Contacté</button>' +
+          '<button class="lab-btn dan" onclick="markLab(\'' + escapeJs(lab.labo) + '\', \'ignored\')">Ignorer</button>'
+      ) +
+    '</div>' +
+    '<div class="offers-box" id="offers-' + safeId + '">' + (offersHtml || '<em style="color:var(--t3);font-size:12px">Aucun détail</em>') + '</div>' +
+  '</div>';
+}
+
+function toggleOffers(safeId) {
+  var el = document.getElementById('offers-' + safeId);
+  if (el) el.classList.toggle('on');
+}
+
+function openLinkedInDecideurs(labo) {
+  var query = encodeURIComponent('("Directeur des ventes" OR "Directeur commercial" OR "DRH" OR "Talent Acquisition" OR "Head of Sales") AND "' + labo + '"');
+  window.open('https://www.linkedin.com/search/results/people/?keywords=' + query + '&origin=GLOBAL_SEARCH_HEADER', '_blank');
+}
+
+async function markLab(labo, status) {
+  try {
+    var response = await fetch('/api/lab-action', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ labo: labo, status: status })
+    });
+    if (response.ok) loadTriggers();
+  } catch(err) {
+    alert('Erreur : ' + err.message);
+  }
+}
+
+function openTrigEmail(labo, nbPostes, regions, fonctions) {
+  var fonctionsList = Object.keys(fonctions || {}).map(function(f) {
+    var n = fonctions[f];
+    return n + ' ' + expandFonction(f) + (n > 1 ? 's' : '');
+  }).join(', ');
+  var subject = labo + ' — ' + nbPostes + ' postes terrain ouverts, comment vous aider';
+  var body = 'Bonjour [Prénom],\n\n' +
+    'J\'ai remarqué que ' + labo + ' a actuellement ' + nbPostes + ' postes ouverts sur des fonctions terrain — ' + fonctionsList + ' — sur ' + regions + '.\n\n' +
+    'Sur le marché pharma terrain, ce volume sur 30 jours indique généralement un besoin de renfort accéléré ou un enjeu de rétention sur certaines régions. Dans les deux cas, le coût d\'un poste non pourvu se chiffre rarement à zéro côté CA.\n\n' +
+    'Je suis spécialisé dans le recrutement de profils terrain pharma (VM, DR, DZ, DSV) en France, avec un pipeline actif sur l\'Île-de-France et les régions principales. J\'accompagne actuellement plusieurs labos sur des configurations similaires, en succès ou en RPO.\n\n' +
+    'Est-ce qu\'on peut prendre 15 minutes cette semaine pour que je comprenne la priorité côté ' + labo + ' et voir si je peux vous présenter quelques profils dès la semaine prochaine ?\n\n' +
+    'Bien cordialement,\nMehdi Moussaoui\nConsultant en recrutement spécialisé Pharma';
+  document.getElementById('trig-modal-title').textContent = 'Email de prospection — ' + labo;
+  document.getElementById('trig-modal-subject').value = subject;
+  document.getElementById('trig-modal-body').value = body;
+  document.getElementById('trig-modal').classList.add('on');
+}
+
+document.getElementById('trig-modal-copy').addEventListener('click', function() {
+  var subject = document.getElementById('trig-modal-subject').value;
+  var body = document.getElementById('trig-modal-body').value;
+  var full = 'Objet : ' + subject + '\n\n' + body;
+  navigator.clipboard.writeText(full).then(function() {
+    var btn = document.getElementById('trig-modal-copy');
+    var orig = btn.innerText;
+    btn.innerText = 'Copié !';
+    setTimeout(function() { btn.innerText = orig; }, 1500);
+  });
+});
+
+document.getElementById('trig-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('on');
+});
+
+document.getElementById('trig-refresh').addEventListener('click', loadTriggers);
+document.getElementById('trig-search').addEventListener('input', filterTriggers);
+document.getElementById('trig-hide-contacted').addEventListener('change', filterTriggers);
+
+function expandFonction(f) {
+  var map = { 'VM':'Visiteur Médical', 'DR':'Directeur Régional', 'DZ':'Directeur de Zone', 'DSV':'Directeur des Ventes', 'KAM':'Key Account Manager', 'RR':'Responsable Régional' };
+  return map[f] || f;
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+function escapeAttr(s) {
+  return escapeHtml(s);
+}
+function escapeJs(s) {
+  if (typeof s !== 'string') return JSON.stringify(s).replace(/"/g, '&quot;');
+  return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
 </script>
 </body>
 </html>
